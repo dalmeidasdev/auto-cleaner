@@ -1,0 +1,13 @@
+# Logs gerados a cada execução (contêm caminhos do seu PC)
+logs/
+
+# Configurações locais do Claude Code
+.claude/
+
+# Capturas de tela e testes locais
+*.png
+scratchpad/
+
+# Arquivos do sistema
+Thumbs.db
+desktop.ini

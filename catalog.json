@@ -1,0 +1,363 @@
+{
+  "raizesDentro": ["%LOCALAPPDATA%", "%APPDATA%"],
+  "raizesExatas": [
+    "%SystemRoot%\\Temp",
+    "%SystemRoot%\\SoftwareDistribution\\Download",
+    "%SystemRoot%\\Logs",
+    "%SystemRoot%\\Minidump",
+    "%ProgramData%\\Microsoft\\Windows\\WER"
+  ],
+  "protegidos": [
+    "%LOCALAPPDATA%\\Programs",
+    "%LOCALAPPDATA%\\Packages",
+    "%LOCALAPPDATA%\\Package Cache",
+    "%LOCALAPPDATA%\\Medal",
+    "%APPDATA%\\Medal",
+    "%LOCALAPPDATA%\\Rockstar Games",
+    "%LOCALAPPDATA%\\Microsoft\\Credentials",
+    "%LOCALAPPDATA%\\Microsoft\\Vault",
+    "%APPDATA%\\Microsoft\\Credentials",
+    "%APPDATA%\\Microsoft\\Protect",
+    "%LOCALAPPDATA%\\FiveM\\FiveM.app\\data\\game-storage",
+    "%LOCALAPPDATA%\\npm-cache\\_npx"
+  ],
+  "naoApagarInteiro": [
+    "%LOCALAPPDATA%\\Microsoft",
+    "%APPDATA%\\Microsoft",
+    "%LOCALAPPDATA%\\Google",
+    "%LOCALAPPDATA%\\Google\\Chrome\\User Data\\Default",
+    "%LOCALAPPDATA%\\Microsoft\\Edge\\User Data\\Default",
+    "%APPDATA%\\discord",
+    "%APPDATA%\\Code",
+    "%APPDATA%\\Code\\User",
+    "%LOCALAPPDATA%\\Steam",
+    "%LOCALAPPDATA%\\FiveM",
+    "%LOCALAPPDATA%\\FiveM\\FiveM.app\\data",
+    "%LOCALAPPDATA%\\npm-cache",
+    "%LOCALAPPDATA%\\pip",
+    "%LOCALAPPDATA%\\uv"
+  ],
+  "inicializacaoProtegidos": ["SecurityHealth", "RtkAudUService", "WavesSvc"],
+
+  "itens": [
+    {
+      "id": "temp-usuario", "categoria": "Arquivos temporários", "nivel": "rapida", "risco": "baixo", "tipo": "pasta",
+      "nome": "Arquivos temporários do usuário",
+      "descricao": "Sobras de instaladores e programas na pasta Temp (só o que tem mais de 24 horas).",
+      "consequencia": "Nenhuma. Arquivos em uso são pulados.",
+      "caminhos": ["%TEMP%"], "idadeMinHoras": 24
+    },
+    {
+      "id": "temp-windows", "categoria": "Arquivos temporários", "nivel": "rapida", "risco": "baixo", "tipo": "pasta", "admin": true,
+      "nome": "Arquivos temporários do Windows",
+      "descricao": "Pasta C:\\Windows\\Temp (só o que tem mais de 24 horas).",
+      "consequencia": "Nenhuma. Arquivos em uso são pulados.",
+      "caminhos": ["%SystemRoot%\\Temp"], "idadeMinHoras": 24
+    },
+    {
+      "id": "nav-chrome", "categoria": "Navegadores", "nivel": "rapida", "risco": "baixo", "tipo": "pasta",
+      "nome": "Cache do Google Chrome",
+      "descricao": "Cache de páginas, de código e de GPU de todos os perfis. Não toca em senhas, cookies, histórico nem abas.",
+      "consequencia": "Os sites carregam um pouco mais devagar na primeira visita.",
+      "caminhos": [
+        "%LOCALAPPDATA%\\Google\\Chrome\\User Data\\*\\Cache",
+        "%LOCALAPPDATA%\\Google\\Chrome\\User Data\\*\\Code Cache",
+        "%LOCALAPPDATA%\\Google\\Chrome\\User Data\\*\\GPUCache",
+        "%LOCALAPPDATA%\\Google\\Chrome\\User Data\\ShaderCache",
+        "%LOCALAPPDATA%\\Google\\Chrome\\User Data\\GrShaderCache"
+      ],
+      "processos": ["chrome"]
+    },
+    {
+      "id": "nav-edge", "categoria": "Navegadores", "nivel": "rapida", "risco": "baixo", "tipo": "pasta",
+      "nome": "Cache do Microsoft Edge",
+      "descricao": "Cache de páginas, de código e de GPU de todos os perfis. Não toca em senhas, cookies, histórico nem abas.",
+      "consequencia": "Os sites carregam um pouco mais devagar na primeira visita.",
+      "caminhos": [
+        "%LOCALAPPDATA%\\Microsoft\\Edge\\User Data\\*\\Cache",
+        "%LOCALAPPDATA%\\Microsoft\\Edge\\User Data\\*\\Code Cache",
+        "%LOCALAPPDATA%\\Microsoft\\Edge\\User Data\\*\\GPUCache",
+        "%LOCALAPPDATA%\\Microsoft\\Edge\\User Data\\ShaderCache",
+        "%LOCALAPPDATA%\\Microsoft\\Edge\\User Data\\GrShaderCache"
+      ],
+      "processos": ["msedge"]
+    },
+    {
+      "id": "miniaturas", "categoria": "Sistema", "nivel": "rapida", "risco": "baixo", "tipo": "pasta",
+      "nome": "Cache de miniaturas e ícones",
+      "descricao": "Miniaturas de fotos e vídeos guardadas pelo Explorador de Arquivos.",
+      "consequencia": "O Windows recria as miniaturas quando você abrir as pastas. Os arquivos em uso pelo Explorer são pulados.",
+      "caminhos": ["%LOCALAPPDATA%\\Microsoft\\Windows\\Explorer"],
+      "filtros": ["thumbcache_*.db", "iconcache_*.db"]
+    },
+    {
+      "id": "shaders", "categoria": "Sistema", "nivel": "rapida", "risco": "baixo", "tipo": "pasta",
+      "nome": "Cache de shaders da placa de vídeo",
+      "descricao": "Cache do DirectX e dos drivers de vídeo.",
+      "consequencia": "Jogos podem dar pequenas travadas na primeira execução enquanto o cache é refeito.",
+      "caminhos": [
+        "%LOCALAPPDATA%\\D3DSCache",
+        "%LOCALAPPDATA%\\NVIDIA\\DXCache",
+        "%LOCALAPPDATA%\\NVIDIA\\GLCache",
+        "%LOCALAPPDATA%\\AMD\\DxCache"
+      ]
+    },
+    {
+      "id": "despejos-usuario", "categoria": "Sistema", "nivel": "rapida", "risco": "baixo", "tipo": "pasta",
+      "nome": "Relatórios de erro dos programas",
+      "descricao": "Despejos de memória e relatórios gerados quando um programa trava.",
+      "consequencia": "Nenhuma, a não ser que você esteja investigando um travamento.",
+      "caminhos": ["%LOCALAPPDATA%\\CrashDumps", "%LOCALAPPDATA%\\Microsoft\\Windows\\WER"]
+    },
+    {
+      "id": "despejos-sistema", "categoria": "Sistema", "nivel": "rapida", "risco": "baixo", "tipo": "pasta", "admin": true,
+      "nome": "Relatórios de erro do Windows",
+      "descricao": "Relatórios de erro do sistema e despejos de tela azul (minidumps).",
+      "consequencia": "Nenhuma, a não ser que você esteja investigando uma tela azul.",
+      "caminhos": ["%ProgramData%\\Microsoft\\Windows\\WER", "%SystemRoot%\\Minidump"]
+    },
+    {
+      "id": "dns", "categoria": "Sistema", "nivel": "rapida", "risco": "baixo", "tipo": "comando", "acao": "dns",
+      "nome": "Limpar cache DNS",
+      "descricao": "Esquece os endereços de sites guardados. Ajuda quando um site não abre.",
+      "consequencia": "Nenhuma."
+    },
+
+    {
+      "id": "lixeira", "categoria": "Sistema", "nivel": "media", "risco": "medio", "tipo": "lixeira",
+      "nome": "Esvaziar a Lixeira",
+      "descricao": "Apaga definitivamente tudo que está na Lixeira, em todos os discos.",
+      "consequencia": "Irreversível: o que está na Lixeira não poderá mais ser restaurado."
+    },
+    {
+      "id": "app-discord", "categoria": "Aplicativos", "nivel": "media", "risco": "baixo", "tipo": "pasta",
+      "nome": "Cache do Discord",
+      "descricao": "Imagens e vídeos já vistos nas conversas.",
+      "consequencia": "Imagens antigas são baixadas de novo quando você rolar a conversa.",
+      "caminhos": ["%APPDATA%\\discord\\Cache", "%APPDATA%\\discord\\Code Cache", "%APPDATA%\\discord\\GPUCache"],
+      "processos": ["Discord"]
+    },
+    {
+      "id": "app-vscode", "categoria": "Aplicativos", "nivel": "media", "risco": "baixo", "tipo": "pasta",
+      "nome": "Cache do VS Code",
+      "descricao": "Cache interno, extensões já instaladas guardadas em .vsix e logs. Não toca em configurações nem extensões.",
+      "consequencia": "A primeira abertura depois da limpeza fica um pouco mais lenta.",
+      "caminhos": [
+        "%APPDATA%\\Code\\Cache", "%APPDATA%\\Code\\CachedData", "%APPDATA%\\Code\\CachedExtensionVSIXs",
+        "%APPDATA%\\Code\\Code Cache", "%APPDATA%\\Code\\GPUCache", "%APPDATA%\\Code\\logs"
+      ],
+      "processos": ["Code"]
+    },
+    {
+      "id": "app-steam", "categoria": "Aplicativos", "nivel": "media", "risco": "baixo", "tipo": "pasta",
+      "nome": "Cache web da Steam",
+      "descricao": "Cache das páginas da loja e da comunidade. Não toca em jogos nem saves.",
+      "consequencia": "A loja demora um pouco mais para abrir na primeira vez.",
+      "caminhos": ["%LOCALAPPDATA%\\Steam\\htmlcache"],
+      "processos": ["steam"]
+    },
+    {
+      "id": "app-squirrel", "categoria": "Aplicativos", "nivel": "media", "risco": "baixo", "tipo": "pasta",
+      "nome": "Sobras de atualizadores",
+      "descricao": "Pacotes temporários deixados por atualizadores de aplicativos (Squirrel).",
+      "consequencia": "Nenhuma.",
+      "caminhos": ["%LOCALAPPDATA%\\SquirrelTemp"], "idadeMinHoras": 24
+    },
+    {
+      "id": "fivem-cache", "categoria": "Jogos", "nivel": "media", "risco": "baixo", "tipo": "pasta",
+      "nome": "Cache, logs e crashes do FiveM",
+      "descricao": "Cache interno, logs e relatórios de erro. Não toca nos arquivos do jogo (game-storage).",
+      "consequencia": "O FiveM demora um pouco mais para abrir na próxima vez.",
+      "caminhos": [
+        "%LOCALAPPDATA%\\FiveM\\FiveM.app\\data\\cache",
+        "%LOCALAPPDATA%\\FiveM\\FiveM.app\\logs",
+        "%LOCALAPPDATA%\\FiveM\\FiveM.app\\crashes"
+      ],
+      "processos": ["FiveM"]
+    },
+    {
+      "id": "fivem-servidores", "categoria": "Jogos", "nivel": "media", "risco": "medio", "tipo": "pasta",
+      "nome": "Assets de servidores do FiveM",
+      "descricao": "Carros, mapas e scripts baixados dos servidores em que você entrou.",
+      "consequencia": "Ao entrar em um servidor, tudo é baixado de novo — pode demorar bastante em servidores grandes.",
+      "caminhos": [
+        "%LOCALAPPDATA%\\FiveM\\FiveM.app\\data\\server-cache",
+        "%LOCALAPPDATA%\\FiveM\\FiveM.app\\data\\server-cache-priv"
+      ],
+      "processos": ["FiveM"]
+    },
+    {
+      "id": "dev-npm", "categoria": "Desenvolvimento", "nivel": "media", "risco": "medio", "tipo": "pasta",
+      "nome": "Cache do npm",
+      "descricao": "Pacotes já baixados pelo npm e logs. Não toca em node_modules nem em ferramentas do npx.",
+      "consequencia": "A próxima instalação de pacotes baixa tudo de novo da internet.",
+      "caminhos": ["%LOCALAPPDATA%\\npm-cache\\_cacache", "%LOCALAPPDATA%\\npm-cache\\_logs"]
+    },
+    {
+      "id": "dev-pip", "categoria": "Desenvolvimento", "nivel": "media", "risco": "medio", "tipo": "pasta",
+      "nome": "Cache do pip",
+      "descricao": "Pacotes Python já baixados. Não toca nos pacotes instalados.",
+      "consequencia": "A próxima instalação de pacotes baixa tudo de novo da internet.",
+      "caminhos": ["%LOCALAPPDATA%\\pip\\Cache"]
+    },
+    {
+      "id": "dev-uv", "categoria": "Desenvolvimento", "nivel": "media", "risco": "medio", "tipo": "pasta",
+      "nome": "Cache do uv",
+      "descricao": "Pacotes Python já baixados pelo uv.",
+      "consequencia": "A próxima instalação de pacotes baixa tudo de novo da internet.",
+      "caminhos": ["%LOCALAPPDATA%\\uv\\cache"]
+    },
+    {
+      "id": "wu-download", "categoria": "Windows Update", "nivel": "media", "risco": "baixo", "tipo": "pasta", "admin": true,
+      "nome": "Downloads do Windows Update",
+      "descricao": "Instaladores de atualizações já aplicadas. O serviço é parado e religado durante a limpeza.",
+      "consequencia": "Uma atualização pendente pode precisar ser baixada de novo.",
+      "caminhos": ["%SystemRoot%\\SoftwareDistribution\\Download"],
+      "servicos": ["wuauserv", "bits"]
+    },
+    {
+      "id": "otimizacao-entrega", "categoria": "Windows Update", "nivel": "media", "risco": "baixo", "tipo": "comando", "acao": "otimizacao-entrega", "admin": true,
+      "nome": "Cache da Otimização de Entrega",
+      "descricao": "Cópias de atualizações guardadas para compartilhar com outros PCs.",
+      "consequencia": "Nenhuma."
+    },
+    {
+      "id": "logs-windows", "categoria": "Windows Update", "nivel": "media", "risco": "baixo", "tipo": "pasta", "admin": true,
+      "nome": "Logs antigos do Windows",
+      "descricao": "Arquivos de log do sistema com mais de 30 dias.",
+      "consequencia": "Nenhuma, a não ser que você esteja investigando um problema antigo.",
+      "caminhos": ["%SystemRoot%\\Logs"], "idadeMinHoras": 720
+    },
+    {
+      "id": "inicializacao", "categoria": "Otimização", "nivel": "media", "risco": "medio", "tipo": "interativo", "acao": "inicializacao", "marcarPorPadrao": false,
+      "nome": "Programas na inicialização",
+      "descricao": "Abre uma lista para você escolher o que deve abrir junto com o Windows. Menos programas = boot mais rápido.",
+      "consequencia": "O programa desativado só abre quando você clicar nele. Reversível aqui ou no Gerenciador de Tarefas."
+    },
+    {
+      "id": "trim", "categoria": "Otimização", "nivel": "media", "risco": "baixo", "tipo": "comando", "acao": "trim", "admin": true,
+      "nome": "Otimizar o SSD (TRIM)",
+      "descricao": "Avisa o SSD quais blocos estão livres, mantendo a velocidade de gravação.",
+      "consequencia": "Nenhuma."
+    },
+
+    {
+      "id": "dism", "categoria": "Limpeza profunda do Windows", "nivel": "completa", "risco": "medio", "tipo": "comando", "acao": "dism", "admin": true,
+      "nome": "Limpar componentes antigos do Windows (DISM)",
+      "descricao": "Remove versões substituídas de componentes do Windows Update. Abre uma janela preta com o progresso; pode levar de 10 a 30 minutos.",
+      "consequencia": "Demorado. Não use o PC para instalar atualizações enquanto roda."
+    },
+    {
+      "id": "dism-resetbase", "categoria": "Limpeza profunda do Windows", "nivel": "completa", "risco": "alto", "tipo": "comando", "acao": "dism-resetbase", "admin": true,
+      "nome": "DISM com ResetBase (limpeza máxima)",
+      "descricao": "Igual ao item acima, mas apaga também a base das atualizações já instaladas. Libera mais espaço.",
+      "consequencia": "Irreversível: nenhuma atualização do Windows já instalada poderá ser desinstalada depois."
+    },
+    {
+      "id": "sfc", "categoria": "Limpeza profunda do Windows", "nivel": "completa", "risco": "baixo", "tipo": "comando", "acao": "sfc", "admin": true,
+      "nome": "Verificar arquivos do sistema (SFC)",
+      "descricao": "Procura e conserta arquivos corrompidos do Windows. Abre uma janela preta; leva de 10 a 20 minutos.",
+      "consequencia": "Nenhuma, só demora."
+    },
+    {
+      "id": "hibernacao", "categoria": "Otimização", "nivel": "completa", "risco": "medio", "tipo": "comando", "acao": "hibernacao", "admin": true,
+      "nome": "Desativar a hibernação",
+      "descricao": "Apaga o arquivo hiberfil.sys, que reserva vários GB no disco C:.",
+      "consequencia": "Você perde a opção Hibernar e a Inicialização Rápida (o boot pode ficar alguns segundos mais lento). Suspender continua funcionando.",
+      "nomeAlternativo": "Reativar a hibernação",
+      "descricaoAlternativa": "A hibernação está desativada. Marque para reativar (volta a ocupar vários GB no disco C:)."
+    },
+    {
+      "id": "defrag", "categoria": "Otimização", "nivel": "completa", "risco": "baixo", "tipo": "comando", "acao": "defrag", "admin": true,
+      "nome": "Desfragmentar o HD",
+      "descricao": "Reorganiza os arquivos nos discos rígidos (o SSD nunca é desfragmentado). Abre uma janela preta com o progresso.",
+      "consequencia": "Pode levar mais de uma hora em um HD de 1 TB. O PC fica mais lento enquanto roda."
+    },
+    {
+      "id": "playwright", "categoria": "Desenvolvimento", "nivel": "completa", "risco": "medio", "tipo": "pasta",
+      "nome": "Navegadores do Playwright",
+      "descricao": "Cópias de Chromium/Firefox/WebKit baixadas para testes automatizados.",
+      "consequencia": "Projetos que usam Playwright vão precisar de 'npx playwright install' de novo.",
+      "caminhos": ["%LOCALAPPDATA%\\ms-playwright"]
+    },
+    {
+      "id": "windows-old", "categoria": "Limpeza profunda do Windows", "nivel": "completa", "risco": "alto", "tipo": "interativo", "acao": "windows-old",
+      "existe": "%SystemDrive%\\Windows.old",
+      "nome": "Instalação anterior do Windows (Windows.old)",
+      "descricao": "Abre a Limpeza de Disco do Windows, que é a forma segura de remover essa pasta.",
+      "consequencia": "Irreversível: você não poderá mais voltar para a versão anterior do Windows."
+    },
+    {
+      "id": "downloads", "categoria": "Arquivos pessoais", "nivel": "completa", "risco": "alto", "tipo": "interativo", "acao": "downloads", "dias": 90,
+      "nome": "Downloads com mais de 90 dias",
+      "descricao": "Mostra a lista dos arquivos antigos da pasta Downloads para você escolher um por um.",
+      "consequencia": "São arquivos seus. Os escolhidos vão para a Lixeira (dá para restaurar até esvaziá-la)."
+    }
+  ],
+
+  "textos": {
+    "simulacao": "  —  SIMULAÇÃO (nada é apagado)",
+    "nivel1": "Rápida: só itens de risco baixo. Leva segundos e não tem efeito colateral.",
+    "nivel2": "Média: inclui caches de aplicativos, Lixeira e Windows Update. Leva alguns minutos.",
+    "nivel3": "Completa: inclui a limpeza profunda do Windows e otimização de discos. Pode levar mais de uma hora. Itens de risco alto nunca vêm marcados.",
+    "riscoBaixo": "RISCO BAIXO",
+    "riscoMedio": "RISCO MÉDIO",
+    "riscoAlto": "RISCO ALTO",
+    "disco": "{0}  {1} livres de {2}",
+    "adminSim": "Executando como administrador.",
+    "adminNao": "Sem administrador: os itens marcados ADMIN estão bloqueados.",
+    "requerAdmin": "Requer administrador",
+    "naoAnalisado": "",
+    "analisando": "Analisando…",
+    "executando": "Executando…",
+    "naFila": "Na fila",
+    "statusAnalisando": "Analisando {0} de {1}…",
+    "statusExecutando": "Executando {0} de {1}…",
+    "statusPronto": "Pronto.",
+    "statusAnalisado": "Análise concluída. Confira a lista e clique em Executar selecionados.",
+    "statusCancelado": "Cancelado.",
+    "total": "{0} selecionado(s)  ·  cerca de {1} a liberar",
+    "totalVazio": "Nenhum item selecionado",
+    "semSelecao": "Nenhum item selecionado.",
+    "faltaAnalise": "Há itens selecionados que ainda não foram analisados.\n\nClique em Analisar primeiro para ver quanto cada um libera.",
+    "confirmar1": "Você vai executar {0} item(ns), liberando cerca de {1}:\n\n{2}\n\nContinuar?",
+    "confirmar2": "ATENÇÃO — estes itens têm risco médio ou alto:\n\n{0}\n\nTem certeza de que quer continuar?",
+    "linhaConfirmar": "•  {0}  ({1})",
+    "linhaRisco": "•  [{0}]  {1}\n     {2}",
+    "pontoRestauracao": "Há itens de risco alto selecionados.\n\nCriar um ponto de restauração do sistema antes de começar? (recomendado)",
+    "criandoPonto": "Criando ponto de restauração…",
+    "pontoFalhou": "Não foi possível criar o ponto de restauração:\n\n{0}\n\nContinuar mesmo assim?",
+    "resumo": "Concluído.\n\nEspaço liberado: {0}\nArquivos pulados (em uso ou protegidos): {1}\n\nO registro completo está em:\n{2}",
+    "resumoSimulacao": "Simulação concluída — nada foi apagado.\n\nSeria liberado: {0}\n\nO registro completo está em:\n{1}",
+    "liberado": "Liberado {0}",
+    "liberadoPulados": "Liberado {0}  ·  {1} pulado(s)",
+    "liberaria": "Simulação: liberaria {0}",
+    "nadaALimpar": "Nada a limpar",
+    "erro": "Erro: {0}",
+    "notaFecharApp": "Feche o aplicativo para limpar ({0})",
+    "notaSimulado": "Simulação: não executado",
+    "notaFeito": "Concluído",
+    "notaCodigoSaida": "Terminou com código {0} — veja o log",
+    "notaReiniciar": "Concluído — reinicie o PC para finalizar",
+    "notaSemDisco": "Nenhum disco desse tipo encontrado",
+    "notaHibernacaoOff": "Hibernação já está desativada",
+    "uacCancelado": "A elevação foi cancelada. O programa continua sem privilégios de administrador.",
+    "ocupado": "Aguarde a operação atual terminar ou clique em Cancelar.",
+    "iniTitulo": "Programas na inicialização",
+    "iniInfo": "Marcado = abre junto com o Windows. Desmarque o que você não precisa logo ao ligar o PC.\nNada é desinstalado: é o mesmo interruptor do Gerenciador de Tarefas, e dá para reativar a qualquer momento.",
+    "iniOk": "Aplicar",
+    "iniProtegido": "essencial do sistema — bloqueado",
+    "iniAdmin": "requer administrador",
+    "iniAplicado": "{0} alteração(ões) aplicada(s)",
+    "dlTitulo": "Downloads antigos",
+    "dlInfo": "Arquivos da pasta Downloads sem alteração há mais de {0} dias.\nMarque apenas o que você tem certeza de que não precisa. Os marcados vão para a Lixeira.",
+    "dlOk": "Enviar marcados para a Lixeira",
+    "dlVazio": "Nenhum arquivo com mais de {0} dias na pasta Downloads.",
+    "dlDetalhe": "{0}  ·  modificado em {1}",
+    "dlPasta": "[pasta]  ",
+    "dlEnviados": "{0} enviado(s) para a Lixeira",
+    "windowsOld": "A Limpeza de Disco do Windows vai abrir.\n\nMarque \"Instalações anteriores do Windows\" e confirme. Essa é a forma segura de remover a pasta Windows.old.",
+    "windowsOldAberto": "Limpeza de Disco aberta",
+    "erroFatal": "O Auto Cleaner encontrou um erro e precisa fechar:\n\n{0}"
+  }
+}
